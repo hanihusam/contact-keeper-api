@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { MDBBtn, MDBFormInline, MDBInput } from "mdbreact";
-import ContactContext from "../../context/contacts/contactContext";
+import ContactContext from "../../context/contact/contactContext";
 
 const ContactForm = () => {
   const contactContext = useContext(ContactContext);

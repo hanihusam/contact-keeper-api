@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
-import ContactContext from "../../context/contacts/contactContext";
+import ContactContext from "../../context/contact/contactContext";
 import {
   MDBCard,
   MDBBtn,
@@ -13,10 +13,10 @@ const ContactItem = ({ contact }) => {
   const contactContext = useContext(ContactContext);
   const { setCurrent, deleteContact, clearCurrent } = contactContext;
 
-  const { id, name, email, phone, type } = contact;
+  const { _id, name, email, phone, type } = contact;
 
   const onDelete = () => {
-    deleteContact(id);
+    deleteContact(_id);
     clearCurrent();
   };
   return (

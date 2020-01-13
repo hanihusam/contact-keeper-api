@@ -1,5 +1,5 @@
 import React, { useContext, useRef, useEffect } from "react";
-import ContactContext from "../../context/contacts/contactContext";
+import ContactContext from "../../context/contact/contactContext";
 import { MDBFormInline, MDBIcon } from "mdbreact";
 
 const ContactFilter = () => {

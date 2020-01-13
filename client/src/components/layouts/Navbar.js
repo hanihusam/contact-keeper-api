@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext, Fragment } from "react";
+import AuthContext from "../../context/auth/authContext";
+import ContactContext from "../../context/contact/contactContext";
 import {
   MDBNavbar,
   MDBNavbarBrand,
@@ -11,7 +13,42 @@ import {
 import PropTypes from "prop-types";
 
 const Navbar = ({ title, icon }) => {
+  const authContext = useContext(AuthContext);
+  const contactContext = useContext(ContactContext);
+
   const [isOpen, setIsOpen] = useState(false);
+
+  const { isAuthenticated, logout, user } = authContext;
+  const { clearContacts } = contactContext;
+
+  const onLogout = () => {
+    logout();
+    clearContacts();
+  };
+
+  const authLinks = () => (
+    <Fragment>
+      <MDBNavItem>
+        <MDBNavbarBrand>Hello {user && user.name}</MDBNavbarBrand>
+      </MDBNavItem>
+      <MDBNavItem>
+        <MDBNavLink to="#" onClick={onLogout}>
+          <i className="fas fa-sign-out-alt" /> Logout
+        </MDBNavLink>
+      </MDBNavItem>
+    </Fragment>
+  );
+
+  const guestLinks = () => (
+    <Fragment>
+      <MDBNavItem>
+        <MDBNavLink to="/register">Register</MDBNavLink>
+      </MDBNavItem>
+      <MDBNavItem>
+        <MDBNavLink to="/login">Login</MDBNavLink>
+      </MDBNavItem>
+    </Fragment>
+  );
 
   // Toggler button
   const toggleCollapse = () => {
@@ -26,18 +63,7 @@ const Navbar = ({ title, icon }) => {
       <MDBNavbarToggler onClick={toggleCollapse} />
       <MDBCollapse id="navbarCollapse3" isOpen={isOpen} navbar>
         <MDBNavbarNav right>
-          <MDBNavItem>
-            <MDBNavLink to="/">Home</MDBNavLink>
-          </MDBNavItem>
-          <MDBNavItem>
-            <MDBNavLink to="/about">About</MDBNavLink>
-          </MDBNavItem>
-          <MDBNavItem>
-            <MDBNavLink to="/register">Register</MDBNavLink>
-          </MDBNavItem>
-          <MDBNavItem>
-            <MDBNavLink to="/login">Login</MDBNavLink>
-          </MDBNavItem>
+          {isAuthenticated ? authLinks() : guestLinks()}
         </MDBNavbarNav>
       </MDBCollapse>
     </MDBNavbar>
