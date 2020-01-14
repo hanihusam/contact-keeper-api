@@ -28,10 +28,10 @@ const Navbar = ({ title, icon }) => {
 
   const authLinks = () => (
     <Fragment>
-      <MDBNavItem>
+      <MDBNavItem className="text-right">
         <MDBNavbarBrand>Hello {user && user.name}</MDBNavbarBrand>
       </MDBNavItem>
-      <MDBNavItem>
+      <MDBNavItem className="text-right">
         <MDBNavLink to="#" onClick={onLogout}>
           <i className="fas fa-sign-out-alt" /> Logout
         </MDBNavLink>
@@ -41,10 +41,10 @@ const Navbar = ({ title, icon }) => {
 
   const guestLinks = () => (
     <Fragment>
-      <MDBNavItem>
+      <MDBNavItem className="text-right">
         <MDBNavLink to="/register">Register</MDBNavLink>
       </MDBNavItem>
-      <MDBNavItem>
+      <MDBNavItem className="text-right">
         <MDBNavLink to="/login">Login</MDBNavLink>
       </MDBNavItem>
     </Fragment>

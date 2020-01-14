@@ -1,10 +1,18 @@
 import React, { useState, useContext, useEffect } from "react";
-import { MDBBtn, MDBFormInline, MDBInput } from "mdbreact";
+import { MDBBtn } from "mdbreact";
 import ContactContext from "../../context/contact/contactContext";
+import AlertContext from "../../context/alert/alertContext";
 
 const ContactForm = () => {
   const contactContext = useContext(ContactContext);
-  const { addContact, updateContact, current, clearCurrent } = contactContext;
+  const alertContext = useContext(AlertContext);
+  const {
+    addContact,
+    updateContact,
+    current,
+    clearCurrent,
+    error
+  } = contactContext;
   const [contact, setContact] = useState({
     name: "",
     email: "",
@@ -25,6 +33,13 @@ const ContactForm = () => {
     }
   }, [contactContext, current]);
 
+  useEffect(() => {
+    if (error) {
+      alertContext.setAlert(error, "danger");
+    }
+    // eslint-disable-next-line
+  }, [error]);
+
   const { name, email, phone, type } = contact;
 
   const onChange = e => {
@@ -37,6 +52,7 @@ const ContactForm = () => {
 
   const onSubmit = e => {
     e.preventDefault();
+
     if (current === null) {
       addContact(contact);
     } else {
